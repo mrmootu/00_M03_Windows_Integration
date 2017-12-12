@@ -1,0 +1,56 @@
+[GenericExample:vars]
+
+###########################################################################
+### Ansible Vars
+###########################################################################
+timeout=60
+ansible_become=yes
+ansible_ssh_user=ec2-user
+
+
+[GenericExample:children]
+towers
+frontends
+apps
+appdbs
+windows
+support
+
+[towers]
+## These are the towers
+tower1.0b0b.internal public_host_name=tower1.0b0b.example.opentlc.com ssh_host=ec2-52-220-19-173.ap-southeast-1.compute.amazonaws.com
+tower2.0b0b.internal public_host_name=tower2.0b0b.example.opentlc.com ssh_host=ec2-13-229-161-192.ap-southeast-1.compute.amazonaws.com
+tower3.0b0b.internal public_host_name=tower3.0b0b.example.opentlc.com ssh_host=ec2-13-228-86-91.ap-southeast-1.compute.amazonaws.com
+
+[frontends]
+## These are the frontends
+frontend1.0b0b.internal ssh_host=ec2-52-221-38-82.ap-southeast-1.compute.amazonaws.com
+
+[apps]
+## These are the apps
+app1.0b0b.internal ssh_host=ec2-52-74-231-13.ap-southeast-1.compute.amazonaws.com
+app2.0b0b.internal ssh_host=ec2-52-76-65-191.ap-southeast-1.compute.amazonaws.com
+
+[appdbs]
+## These are the appdbs
+appdb1.0b0b.internal ssh_host=ec2-52-221-151-45.ap-southeast-1.compute.amazonaws.com
+
+[windows]
+## These are the activedirectory servers
+ad1.0b0b.internal ssh_host=ad1.0b0b.example.opentlc.com ansible_password=jVMijRwLbI02gFCo2xkjlZ9lxEA7bm7zgg==
+
+
+## These are the supporthosts
+[support]
+support1.0b0b.internal ssh_host=ec2-52-76-96-183.ap-southeast-1.compute.amazonaws.com
+support2.0b0b.internal ssh_host=ec2-13-229-170-217.ap-southeast-1.compute.amazonaws.com
+
+[windows:vars]
+ansible_connection=winrm
+ansible_port=5986
+ansible_ssh_port=5986
+ansible_user=Administrator
+ansible_ssh_user=Administrator
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_transport=basic
+ansible_become=false
